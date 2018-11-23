@@ -1,0 +1,31 @@
+.explantion-wrapper {
+  padding: 24px;
+  position: relative;
+  .phonetic {
+    margin: 12px 0;
+    span {
+      margin-right: 12px;
+    }
+  }
+  .explains {
+    font-weight: bold;
+    line-height: 1.6em;
+  }
+  .stage{
+    position: absolute;
+    right: 24px;
+    top: 24px;
+  }
+}
+
+.heart {
+  width: 70px;
+  height: 50px;
+  background: url("../../assets/star.png") no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  &.active {
+    background-position: -3519px 0;
+    transition: background 1s steps(55);
+  }
+}

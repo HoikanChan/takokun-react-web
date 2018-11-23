@@ -1,8 +1,8 @@
 import React from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
-import { signIn, clearError } from "../../actions/authActions";
-import "./SignIn.scss";
+import { signUp } from "../../actions/authActions";
+import "./SignUp.scss";
 
 const FormItem = Form.Item;
 
@@ -18,16 +18,15 @@ class HorizontalLoginForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        this.props.signIn(values);
+        const result = await this.props.signUp(values);
+        console.log(result);
         console.log("Received values of form: ", values);
       }
     });
   };
-  clearError = () => {
-    this.props.authError && this.props.clearError();
-  };
+
   render() {
     const {
       getFieldDecorator,
@@ -39,12 +38,12 @@ class HorizontalLoginForm extends React.Component {
 
     // Only show error after a field is touched.
     const emailError = isFieldTouched("email") && getFieldError("email");
+    const nameError = isFieldTouched("name") && getFieldError("name");
     const passwordError =
       isFieldTouched("password") && getFieldError("password");
     return (
       <div className="container">
-        <div>{authError ? <p>{authError}</p> : null}</div>
-        <h1>Sign In</h1>
+        <h1>Sign Up</h1>
         <Form onSubmit={this.handleSubmit.bind(this)}>
           <FormItem
             validateStatus={emailError ? "error" : ""}
@@ -60,7 +59,6 @@ class HorizontalLoginForm extends React.Component {
               ]
             })(
               <Input
-                onFocus={this.clearError.bind(this)}
                 prefix={
                   <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                 }
@@ -78,7 +76,6 @@ class HorizontalLoginForm extends React.Component {
               ]
             })(
               <Input
-                onFocus={this.clearError}
                 prefix={
                   <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                 }
@@ -87,6 +84,24 @@ class HorizontalLoginForm extends React.Component {
               />
             )}
           </FormItem>
+          <FormItem
+            validateStatus={nameError ? "error" : ""}
+            help={nameError || ""}
+          >
+            {getFieldDecorator("name", {
+              rules: [{ required: true, message: "Please input your name!" }]
+            })(
+              <Input
+                prefix={
+                  <Icon type="contacts" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                type="name"
+                placeholder="name"
+              />
+            )}
+          </FormItem>
+          <div>{authError ? <p>{authError}</p> : null}</div>
+
           <FormItem>
             <Button
               type="primary"
@@ -95,7 +110,7 @@ class HorizontalLoginForm extends React.Component {
               loading={this.props.isSendingRequest}
               disabled={hasErrors(getFieldsError())}
             >
-              Log in
+              Sign Up
             </Button>
           </FormItem>
         </Form>
@@ -108,13 +123,12 @@ const WrappedHorizontalLoginForm = Form.create()(HorizontalLoginForm);
 const mapStateToProps = state => {
   return {
     authError: state.auth.authError,
-    isSendingRequest: state.auth.isSendingRequest
+    isSendingRequest: state.auth.isSendingRequest,
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: credentials => dispatch(signIn(credentials)),
-    clearError: () => dispatch(clearError())
+    signUp: newUser => dispatch(signUp(newUser))
   };
 };
 export default connect(

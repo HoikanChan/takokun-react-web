@@ -1,11 +1,15 @@
 import WordInput from "./words/WordInput";
-import React from 'react'
+import "./Header.scss"
+import React from "react";
 
-export default function Header() {
+function Header() {
   return (
-    <header>
-      <h1>单词君</h1>
-      <WordInput/>
-    </header>
+    <div className="normal">
+      <header>
+        <h1>单词君</h1>
+        <WordInput />
+      </header>
+    </div>
   );
 }
+export default Header;

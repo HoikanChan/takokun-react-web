@@ -1,0 +1,25 @@
+.ant-input {
+  padding-bottom: 20px !important;
+  padding-top: 20px !important;
+  padding-left: 36px !important;
+}
+.submit-btn {
+  width: 100%;
+}
+.container {
+  margin: 200px 0 40px 0;
+  position: relative;
+  h1 {
+    position: absolute;
+    top: -155px;
+    width: 100%;
+    font-size: 100px;
+    font-weight: 100;
+    text-align: center;
+    color: rgba(175, 47, 47, 0.15);
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+  }
+}
