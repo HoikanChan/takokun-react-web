@@ -10,14 +10,14 @@ import { connect } from "react-redux";
 import { signOut } from "../../actions/authActions"
 import { addWord, searchWord } from "../../actions/wordsActions"
 
-function indexPage({ profile, auth, signOut, addWord, wordDetail ,searchWord}) {
+function indexPage({ profile, user, signOut, addWord, wordDetail ,searchWord}) {
   const handleChange = debounce(async word => {
     searchWord(word)
   }, 500);
   // return <input className="new" onChange={_.debounce(handleChange, 500)} />;
   return (
     <div>
-      <Header name={profile.name} uid={auth.uid} signOut={signOut} />
+      <Header name={profile.name} uid={user.uid} signOut={signOut} />
       <div className="normal">
         <h1>单词君</h1>
         <div>
@@ -30,7 +30,7 @@ function indexPage({ profile, auth, signOut, addWord, wordDetail ,searchWord}) {
 }
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth,
+    user: state.auth.user,
     profile: state.firebase.profile,
     wordDetail: state.words.wordDetail
   };

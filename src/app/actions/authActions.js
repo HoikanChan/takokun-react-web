@@ -8,44 +8,28 @@ export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const SIGNOUT_SUCCESS = "SIGNOUT_SUCCESS";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 export const signIn = credentials => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
+  return async (dispatch, getState, api) => {
+    console.log(api)
     dispatch({ type: SEDING_REQUEST });
-
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
-        history.push("/");
-        dispatch({ type: LOGIN_SUCCESS });
-      })
-      .catch(error => {
-        dispatch({ type: LOGIN_ERROR, error: error.message });
-      });
+    try {
+      const { user, token } = await api().post("/register", credentials)
+      history.push("/");
+      dispatch({ type: LOGIN_SUCCESS, user, token });
+    } catch (error) {
+      dispatch({ type: LOGIN_ERROR, error: error.message });
+    }
   };
 };
 export const signUp = newUser => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
+  return async (dispatch, getState, api) => {
     dispatch({ type: SEDING_REQUEST });
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then(res => {
-        return firestore
-          .collection("users")
-          .doc(res.user.uid)
-          .set({
-            name: newUser.name
-          });
-      })
-      .then(() => {
-        dispatch({ type: SIGNUP_SUCCESS });
-      })
-      .catch(err => {
-        dispatch({ type: SIGNUP_ERROR, error: err.message });
-      });
+    try {
+      const { user, token } = await api().post("/register", newUser)
+      history.push("/");
+      dispatch({ type: SIGNUP_SUCCESS, user, token });
+    } catch (error) {
+      dispatch({ type: SIGNUP_ERROR, error: error.message });
+    } 
   };
 };
 

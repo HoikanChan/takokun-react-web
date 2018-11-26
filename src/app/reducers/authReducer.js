@@ -8,6 +8,8 @@ import {
   CLEAR_ERROR
 } from "../actions/authActions";
 const intiState = {
+  token: null,
+  user: null,
   authorError: null,
   isSendingRequest: false
 };
