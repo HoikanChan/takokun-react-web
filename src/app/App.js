@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Header from "./components/Header";
-import SignIn from "./components/auth/SignIn";
-import SignUp from "./components/auth/SignUp";
+import indexPage from "./views/indexPage/indexPage";
+import SignIn from "./views/signin/SignIn";
+import SignUp from "./views/signup/SignUp";
 import { Provider } from "react-redux";
 import store from "./store";
 import history from "./utils/history";
@@ -17,7 +17,7 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Switch>
-            <Route exact path="/" component={Header} />
+            <Route exact path="/" component={indexPage} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
           </Switch>

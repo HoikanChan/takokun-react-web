@@ -20,7 +20,6 @@ export const signIn = credentials => {
         dispatch({ type: LOGIN_SUCCESS });
       })
       .catch(error => {
-        debugger;
         dispatch({ type: LOGIN_ERROR, error: error.message });
       });
   };
@@ -53,6 +52,7 @@ export const signUp = newUser => {
 export const signOut = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    debugger
     firebase
       .auth()
       .signOut()

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.10.8",
+    "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "classnames": "^2.2.6",
     "google-translate-api": "^2.3.0",
@@ -40,6 +41,7 @@
     "blueimp-md5": "^2.10.0",
     "firebase": "^5.5.9",
     "history": "^4.7.2",
-    "loadsh": "^0.0.3"
+    "loadsh": "^0.0.3",
+    "prop-types": "^15.6.2"
   }
 }
