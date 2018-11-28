@@ -9,10 +9,9 @@ export const SIGNOUT_SUCCESS = "SIGNOUT_SUCCESS";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 export const signIn = credentials => {
   return async (dispatch, getState, api) => {
-    console.log(api)
     dispatch({ type: SEDING_REQUEST });
     try {
-      const { user, token } = await api().post("/register", credentials)
+      const { user, token } = (await api().post("/login", credentials)).data;
       history.push("/");
       dispatch({ type: LOGIN_SUCCESS, user, token });
     } catch (error) {
@@ -24,25 +23,18 @@ export const signUp = newUser => {
   return async (dispatch, getState, api) => {
     dispatch({ type: SEDING_REQUEST });
     try {
-      const { user, token } = await api().post("/register", newUser)
+      const { user, token } = await api().post("/register", newUser);
       history.push("/");
       dispatch({ type: SIGNUP_SUCCESS, user, token });
     } catch (error) {
       dispatch({ type: SIGNUP_ERROR, error: error.message });
-    } 
+    }
   };
 };
 
 export const signOut = () => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    debugger
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        dispatch({ type: SIGNOUT_SUCCESS });
-      });
+  return dispatch => {
+    dispatch({ type: SIGNOUT_SUCCESS });
   };
 };
 

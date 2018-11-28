@@ -30,6 +30,8 @@ const authReducer = (state = intiState, action) => {
       return {
         ...state,
         authError: null,
+        token: action.token,
+        user: action.user,
         isSendingRequest: false
       };
     case SIGNUP_SUCCESS:
@@ -42,10 +44,12 @@ const authReducer = (state = intiState, action) => {
       return {
         ...state,
         authError: action.error,
+        token: action.token,
+        user: action.user,
         isSendingRequest: false
       };
     case SIGNOUT_SUCCESS:
-      return state;
+      return { ...state, token: null, user: null };
     case CLEAR_ERROR:
       return { ...state, authError: null };
     default:
