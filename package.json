@@ -43,6 +43,7 @@
     "firebase": "^5.5.9",
     "history": "^4.7.2",
     "loadsh": "^0.0.3",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "redux-persist": "^5.10.0"
   }
 }

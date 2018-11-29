@@ -1,12 +1,13 @@
 import React from "react";
 import "./WordExplanation.scss";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 WordExplanation.propTypes = {
-  addWord: PropTypes.func,
+  addWordFav: PropTypes.func,
+  removeWordFav: PropTypes.func,
   detail: PropTypes.object
 };
-export default function WordExplanation({ detail, addWord }) {
-  console.log(detail);
+export default function WordExplanation({ detail, addWordFav, removeWordFav }) {
   const { _id, wordDetail } = detail;
   const explainsDiv = wordDetail.basic ? (
     wordDetail.basic.explains.map((explains, index) => (
@@ -17,18 +18,25 @@ export default function WordExplanation({ detail, addWord }) {
   ) : (
     <div />
   );
-  // eslint-disable-next-line
-  function addStar(e) {
-    addWord({
-      word: wordDetail.query,
-      explains: JSON.stringify(wordDetail.basic)
-    });
+  function toggleFav(e) {
+    if (!detail.fav) {
+      addWordFav({
+        wordId: _id
+      });
+    } else {
+      removeWordFav({
+        wordId: _id
+      });
+    }
   }
   const WordExplanation = wordDetail.basic ? (
     <div className="explantion-wrapper">
       <h2>{wordDetail.query}</h2>
       <div className="stage">
-        <div className="heart" onClick={addStar} />
+        <div
+          onClick={toggleFav}
+          className={classNames("heart", { active: detail.fav })}
+        />
       </div>
       <div className="phonetic">
         <span>
@@ -41,7 +49,7 @@ export default function WordExplanation({ detail, addWord }) {
       <div className="explains">{explainsDiv}</div>
     </div>
   ) : (
-    <div>暂无数据</div>
+    <div />
   );
   return WordExplanation;
 }

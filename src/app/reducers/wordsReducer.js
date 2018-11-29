@@ -1,6 +1,7 @@
 import {
   ADD_SUCCESS,
-  ADD_ERROR,
+  BOOKMARK_WORD,
+  UNBOOKMARK_WORD,
   SEARCH_WORD,
   CLEAR_WORD
 } from "../actions/wordsActions";
@@ -9,11 +10,19 @@ const intiState = {
   wordDetail: null
 };
 const authReducer = (state = intiState, action) => {
+  let wordDetail = null;
   switch (action.type) {
-    case ADD_ERROR:
+    case BOOKMARK_WORD:
+      wordDetail = { ...state.wordDetail, fav: true };
       return {
         ...state,
-        isSendingRequest: false
+        wordDetail
+      };
+    case UNBOOKMARK_WORD:
+      wordDetail = { ...state.wordDetail, fav: false };
+      return {
+        ...state,
+        wordDetail
       };
     case ADD_SUCCESS:
       return {
@@ -23,7 +32,7 @@ const authReducer = (state = intiState, action) => {
     case SEARCH_WORD:
       return {
         ...state,
-        wordDetail: { ...action.wordDetail, fav: action.isFav },
+        wordDetail: action.wordDetail,
         isSendingRequest: false
       };
     case CLEAR_WORD:

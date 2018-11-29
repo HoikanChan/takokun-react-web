@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from "../store";
+import { store } from "../store";
 import { notification } from "antd";
 const host = "http://localhost:8081/";
 export default () => {

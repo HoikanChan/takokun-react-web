@@ -6,9 +6,13 @@ import Header from "../../components/header/Header";
 import { Input } from "antd";
 import { connect } from "react-redux";
 import { signOut } from "../../actions/authActions";
-import { addWord, searchWord } from "../../actions/wordsActions";
+import {
+  addWordFav,
+  removeWordFav,
+  searchWord
+} from "../../actions/wordsActions";
 
-function indexPage({ user, signOut, addWord, wordDetail, searchWord }) {
+function indexPage({ user, signOut, addWordFav,removeWordFav, wordDetail, searchWord }) {
   const handleChange = debounce(async word => {
     searchWord(word);
   }, 500);
@@ -25,7 +29,11 @@ function indexPage({ user, signOut, addWord, wordDetail, searchWord }) {
         </div>
         <div className="explanation">
           {wordDetail ? (
-            <WordExplanation detail={wordDetail} addWord={addWord} />
+            <WordExplanation
+              detail={wordDetail}
+              addWordFav={addWordFav}
+              removeWordFav={removeWordFav}
+            />
           ) : (
             <div />
           )}
@@ -43,7 +51,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(signOut()),
-    addWord: word => dispatch(addWord(word)),
+    addWordFav: word => dispatch(addWordFav(word)),
+    removeWordFav: word => dispatch(removeWordFav(word)),
     searchWord: word => dispatch(searchWord(word))
   };
 };
