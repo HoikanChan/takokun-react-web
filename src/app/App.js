@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import indexPage from "./views/indexPage/indexPage";
+import WordBook from "./views/wordBook/wordBook";
 import SignIn from "./views/signin/SignIn";
 import SignUp from "./views/signup/SignUp";
 import { Provider } from "react-redux";
@@ -22,6 +23,7 @@ class App extends Component {
               <Route exact path="/" component={indexPage} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
+              <Route path="/wordBook" component={WordBook} />
             </Switch>
           </Router>
         </PersistGate>

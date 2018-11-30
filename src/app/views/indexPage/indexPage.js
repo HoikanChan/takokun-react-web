@@ -6,16 +6,27 @@ import Header from "../../components/header/Header";
 import { Input } from "antd";
 import { connect } from "react-redux";
 import { signOut } from "../../actions/authActions";
+import history from "../../utils/history";
 import {
   addWordFav,
   removeWordFav,
   searchWord
 } from "../../actions/wordsActions";
 
-function indexPage({ user, signOut, addWordFav,removeWordFav, wordDetail, searchWord }) {
+function indexPage({
+  user,
+  signOut,
+  addWordFav,
+  removeWordFav,
+  wordDetail,
+  searchWord
+}) {
   const handleChange = debounce(async word => {
     searchWord(word);
   }, 500);
+  const routeToLogin = () =>{
+    history.push("/signin")
+  }
   return (
     <div>
       <Header user={user} signOut={signOut} />
@@ -30,9 +41,11 @@ function indexPage({ user, signOut, addWordFav,removeWordFav, wordDetail, search
         <div className="explanation">
           {wordDetail ? (
             <WordExplanation
+              isLogined={!!user}
               detail={wordDetail}
               addWordFav={addWordFav}
               removeWordFav={removeWordFav}
+              routeToLogin={routeToLogin}
             />
           ) : (
             <div />

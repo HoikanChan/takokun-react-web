@@ -10,7 +10,9 @@ function Header({ user, signOut }) {
         <div className="login-container">
           <div className="login">
             <Icon type="smile" />
+            <NavLink to="/wordBook">
             {user.name}
+            </NavLink>
           </div>
           <div className="logout" onClick={() => signOut()}>
             登出
